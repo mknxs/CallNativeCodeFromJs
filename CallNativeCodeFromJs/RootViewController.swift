@@ -16,28 +16,26 @@ class RootViewController: UIViewController, UIWebViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+        if let url = self.indexFileURL {
+            self.webView.loadRequest(URLRequest(url: url))
+        }
+        
         self.webView.delegate = self
-        let url = self.indexFileURL
-        self.webView.loadRequest(URLRequest(url: url))
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
         
-    fileprivate var indexFileURL: URL {
+    fileprivate var indexFileURL: URL? {
         get {
-            return URL(string: Bundle.main.path(forResource: "index", ofType: "html")!)!
+            return URL(string: Bundle.main.path(forResource: "index", ofType: "html", inDirectory: "assets")!)
         }
     }
     
     func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
         if let url = request.url {
-            return (self.handler.invoke(url: url))
+            return (self.handler.invoke(url: url, webView: webView))
         } else {
             return true
         }
