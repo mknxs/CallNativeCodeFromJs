@@ -12,11 +12,11 @@ import UIKit
 class SampleProcess : APIProcess {
     
     public override func validate() -> Bool {
-        return super.validate() && self.params["message"] != nil
+        return super.validate() && self.params[self.keys.message] != nil
     }
     
     public override func execute(webView: UIWebView, completion: (Bool) -> ()) -> Bool {
-        let message = self.params["message"]
+        let message = self.params[self.keys.message]
         print(message!);
         let r = Result.init()
         r.result = true

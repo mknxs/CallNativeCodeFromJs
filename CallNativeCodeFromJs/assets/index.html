@@ -1,19 +1,29 @@
 <html>
     <head>
         <meta charset="utf-8">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
         <script type="text/javascript" src="./js/JsInterface.js"></script>
         <script type="text/javascript">
-            
-         var callAPI = function() {
-             var params = {};
-             params.message = "Hello Swift";
-             JsInterface.callAPI("sample", JSON.stringify(params), function(result) {
-               console.log(JSON.stringify(result));
-             });
-         }
+        var getString = function() {
+          return $('#textbox').val();
+        };
+
+        var callSample = function() {
+          var message = getString();
+          JsInterface.sample(message, null);
+        };
+
+        var callOpenUrl = function() {
+          var url = getString();
+          JsInterface.openUrl(url, function(result) {
+            console.log(JSON.stringify(result));
+          });
+        };
         </script>
     </head>
     <body>
-        <input type="button" value="callAPI" onclick="callAPI();">
+      <input type="text" id="textbox">
+      <input type="button" value="sample" onclick="callSample();">
+      <input type="button" value="openUrl" onclick="callOpenUrl();">
     </body>
 </html>

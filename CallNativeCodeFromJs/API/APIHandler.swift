@@ -17,6 +17,7 @@ class APIHandler {
     public enum Method : String {
         case Unknown = "unknown"
         case Sample = "sample"
+        case OpenUrl = "open_url"
     }
     
     public struct JsonKeys {
@@ -100,8 +101,10 @@ class APIHandler {
                 case .Sample:
                     t = SampleProcess.self
                     break
+                case .OpenUrl:
+                    t = OpenUrlProcess.self
+                    break
                 default:
-                    
                     break
                 }
                 

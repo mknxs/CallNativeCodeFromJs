@@ -31,6 +31,7 @@ class APIProcess {
     
     var params: Dictionary<String, AnyObject>
     var callback = APIHandler.CallBack.None
+    var keys = KeyPaths.shared
     
     required public init(params: Dictionary<String, AnyObject>, callback: APIHandler.CallBack) {
         self.params = params

@@ -26,5 +26,17 @@ var JsInterface = {
         location += envName + "callback/";
         
         setTimeout(function(){document.location = location;}, 10);
+    },
+
+    sample: function(message, callback) {
+        var params = {};
+        params.message = message;
+        JsInterface.callAPI("sample", JSON.stringify(params), callback);
+    },
+
+    openUrl: function(url, callback) {
+        var params = {};
+        params.url = url;
+        JsInterface.callAPI("open_url", JSON.stringify(params), callback);
     }
 };
