@@ -35,7 +35,7 @@ class RootViewController: UIViewController, UIWebViewDelegate {
     
     func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
         if let url = request.url {
-            return (self.handler.invoke(url: url, webView: webView))
+            return self.handler.invoke(url: url, webView: webView)
         } else {
             return true
         }

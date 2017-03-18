@@ -19,9 +19,31 @@ class APIHandler {
         case Sample = "sample"
     }
     
+    public struct JsonKeys {
+        public static let result = "result"
+        public static let data = "data"
+    }
+    
     public enum CallBack {
         case None
         case FunctionName(String)
+        
+        public func getJsCode(arg: Dictionary<String, AnyObject>) -> String? {
+            switch self {
+            case .FunctionName(let s):
+                if let data = try? JSONSerialization.data(withJSONObject: arg, options: .prettyPrinted) {
+                    if let argString = String.init(data: data, encoding: .utf8) {
+                        return "" +
+                            "\(s) (\n" +
+                            "\(argString)\n" +
+                        ")"
+                    }
+                }
+            default:
+                break
+            }
+            return nil
+        }
     }
     
     /**

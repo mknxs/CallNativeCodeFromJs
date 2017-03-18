@@ -8,6 +8,7 @@
              var params = {};
              params.message = "Hello Swift";
              JsInterface.callAPI("sample", JSON.stringify(params), function(result) {
+               console.log(JSON.stringify(result));
              });
          }
         </script>

@@ -14,6 +14,19 @@ class APIProcess {
     class Result {
         var result = false
         var data: AnyObject?
+        
+        func toDictionary() -> Dictionary<String, AnyObject> {
+            var dict : Dictionary<String, AnyObject> = [
+                APIHandler.JsonKeys.result: NSNumber.init(booleanLiteral: self.result),
+                ]
+            let dataKey = APIHandler.JsonKeys.data
+            if let d = self.data {
+                dict[dataKey] = d
+            } else {
+                dict[dataKey] = NSNull.init()
+            }
+            return dict
+        }
     }
     
     var params: Dictionary<String, AnyObject>
@@ -35,9 +48,12 @@ class APIProcess {
     }
     
     func finish(result: Result, webView: UIWebView, completion: (Bool) -> ()) {
-        // TODO: js callback
         switch self.callback {
         case .FunctionName(_):
+            if let callback = self.callback.getJsCode(arg: result.toDictionary()) {
+                webView.stringByEvaluatingJavaScript(from: callback)
+                completion(true)
+            }
             break
         default:
             break
